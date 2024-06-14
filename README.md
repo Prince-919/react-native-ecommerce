@@ -1,1 +1,1 @@
-# React Native Movie Search App
+# Mern Ecommerce Application
