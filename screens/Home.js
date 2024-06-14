@@ -69,6 +69,16 @@ const Home = () => {
         },
       ],
     },
+    {
+      _id: "dedfradbshjbs",
+      name: "MSI",
+      price: 76990,
+      images: [
+        {
+          url: "https://storage-asset.msi.com/global/picture/image/feature/nb/Prestige/Prestige16-A13V/kv-laptop.png",
+        },
+      ],
+    },
   ];
 
   const categoryBtnHandler = (id) => {
