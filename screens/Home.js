@@ -13,6 +13,7 @@ import SearchModal from "../components/SearchModal";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
+import Heading from "../components/Heading";
 
 const Home = () => {
   const [category, setCategory] = useState("");
@@ -101,10 +102,11 @@ const Home = () => {
       <View style={defaultStyle}>
         <Header />
         <View style={styles.container}>
-          <View>
-            <Text style={{ fontSize: 25 }}>Our</Text>
-            <Text style={{ fontSize: 25, fontWeight: "900" }}>Products</Text>
-          </View>
+          {/* Heading */}
+
+          <Heading text1="Our" text2="Products" />
+
+          {/* Search */}
           <View>
             <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)}>
               <Avatar.Icon
