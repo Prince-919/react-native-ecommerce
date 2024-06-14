@@ -10,11 +10,16 @@ import Header from "../components/Header";
 import { Avatar, Button } from "react-native-paper";
 import React, { useState } from "react";
 import SearchModal from "../components/SearchModal";
+import ProductCard from "../components/ProductCard";
+import { useNavigation } from "@react-navigation/native";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [category, setCategory] = useState("");
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const navigation = useNavigation();
 
   const categories = [
     {
@@ -46,7 +51,7 @@ const Home = () => {
   const products = [
     {
       _id: "cdfd",
-      name: "IPhone 14 Pro Max",
+      name: "IPhone 14",
       price: 89000,
       images: [
         {
@@ -56,7 +61,7 @@ const Home = () => {
     },
     {
       _id: "dedfrs",
-      name: "Iqoo Z3 5G",
+      name: "Iqoo Z3",
       price: 24990,
       images: [
         {
@@ -68,6 +73,9 @@ const Home = () => {
 
   const categoryBtnHandler = (id) => {
     setCategory(id);
+  };
+  const addToCardHandler = (id) => {
+    console.log("Add to cart", id);
   };
 
   return (
@@ -134,11 +142,26 @@ const Home = () => {
         {/* Products */}
 
         <View style={{ flex: 1 }}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}></ScrollView>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {products.map((item, index) => {
+              return (
+                <ProductCard
+                  key={item._id}
+                  id={item._id}
+                  i={index}
+                  stock={item.stock}
+                  name={item.name}
+                  price={item.price}
+                  image={item.images[0]?.url}
+                  addToCardHandler={addToCardHandler}
+                  navigation={navigation}
+                />
+              );
+            })}
+          </ScrollView>
         </View>
       </View>
+      <Footer activeRoute="home" />
     </>
   );
 };
