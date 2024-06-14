@@ -18,7 +18,10 @@ const Header = ({ back, emptyCart = false }) => {
           style={[styles.leftArrorIcon, { left: 20 }]}
           onPress={() => navigation.goBack()}>
           <Avatar.Icon
-            style={{ backgroundColor: colors.lightGray }}
+            style={{
+              backgroundColor: colors.lightGray,
+              backgroundColor: "",
+            }}
             icon={"arrow-left"}
             color={route.name === "productdetails" ? colors.white : colors.dark}
           />
@@ -30,7 +33,7 @@ const Header = ({ back, emptyCart = false }) => {
           emptyCart ? emptyCartHandler : () => navigation.navigate("cart")
         }>
         <Avatar.Icon
-          style={styles.avatarIcon}
+          style={{ ...styles.avatarIcon, backgroundColor: "" }}
           icon={emptyCart ? "delete-outline" : "cart-outline"}
           color={route.name === "productdetails" ? colors.white : colors.dark}
         />
