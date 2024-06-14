@@ -30,7 +30,7 @@ const Header = ({ back, emptyCart = false }) => {
           emptyCart ? emptyCartHandler : () => navigation.navigate("cart")
         }>
         <Avatar.Icon
-          style={{ backgroundColor: colors.lightGray }}
+          style={styles.avatarIcon}
           icon={emptyCart ? "delete-outline" : "cart-outline"}
           color={route.name === "productdetails" ? colors.white : colors.dark}
         />
@@ -46,5 +46,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 40,
     zIndex: 10,
+  },
+  avatarIcon: {
+    backgroundColor: colors.lightGray,
   },
 });
