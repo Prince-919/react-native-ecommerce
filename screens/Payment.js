@@ -8,7 +8,7 @@ import { useState } from "react";
 const Payment = ({ navigation, route }) => {
   const [paymentMethod, setPaymentMethod] = useState("COD");
 
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   const redirectToLogin = () => {
     navigation.navigate("login");

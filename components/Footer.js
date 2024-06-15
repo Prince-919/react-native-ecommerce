@@ -17,11 +17,8 @@ const Footer = ({ activeRoute = "home" }) => {
         navigation.navigate("cart");
         break;
       case 2:
-        if (isAuthenticated) {
-          navigation.navigate("profile");
-        } else {
-          navigation.navigate("login");
-        }
+        if (isAuthenticated) navigation.navigate("profile");
+        else navigation.navigate("login");
         break;
       default:
         navigation.navigate("home");
