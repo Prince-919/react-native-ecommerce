@@ -1,4 +1,3 @@
-import { Text, View } from "react-native";
 import Main from "./Main";
 
 const App = () => {

@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray2,
   },
   quantity: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.white,
     width: 25,
     height: 25,
     textAlignVertical: "center",
