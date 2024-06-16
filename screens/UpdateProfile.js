@@ -49,7 +49,10 @@ const UpdateProfile = ({ navigation }) => {
             borderRadius: 10,
             backgroundColor: colors.dark,
           }}>
-          <View>
+          <View
+            style={{
+              marginTop: "25%",
+            }}>
             <TextInput
               {...inputOptions}
               placeholder="Name"

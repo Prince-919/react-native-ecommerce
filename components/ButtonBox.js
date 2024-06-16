@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { colors } from "../styles/styles";
 import { Avatar } from "react-native-paper";
 
@@ -10,7 +10,7 @@ const ButtonBox = ({
   loading = false,
 }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       activeOpacity={1}
       style={{
         backgroundColor: reverse ? colors.primary : colors.dark,
@@ -34,7 +34,7 @@ const ButtonBox = ({
         }}>
         {text}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
