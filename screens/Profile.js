@@ -4,6 +4,7 @@ import { Avatar, Button } from "react-native-paper";
 import { useState } from "react";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "./../components/Footer";
+import Loader from "../components/Loader";
 
 const loading = false;
 
@@ -15,7 +16,34 @@ const Profile = ({ navigation }) => {
     email: "hello@prince.com",
   };
 
-  const navigateHandler = () => {};
+  const logoutHandler = () => {
+    alert("Logged out");
+  };
+
+  const navigateHandler = (text) => {
+    switch (text) {
+      case "Admin":
+        navigation.navigate("adminpanel");
+        break;
+      case "Orders":
+        navigation.navigate("orders");
+        break;
+      case "Profile":
+        navigation.navigate("updateprofile");
+        break;
+      case "Password":
+        navigation.navigate("changepassword");
+        break;
+      case "Log Out":
+        logoutHandler();
+        break;
+
+      default:
+      case "Orders":
+        navigation.navigate("orders");
+        break;
+    }
+  };
 
   return (
     <>
@@ -25,66 +53,72 @@ const Profile = ({ navigation }) => {
           <Text style={formHeading}>Profile</Text>
         </View>
 
-        <View style={styles.container}>
-          <Avatar.Image
-            size={100}
-            style={{ backgroundColor: colors.primary }}
-            source={{
-              uri: avatar,
-            }}
-          />
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("camera", { updateProfile: true })
-            }>
-            <Button textColor={colors.primary}>Change Photo</Button>
-          </TouchableOpacity>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <View style={styles.container}>
+              <Avatar.Image
+                size={100}
+                style={{ backgroundColor: colors.primary }}
+                source={{
+                  uri: avatar,
+                }}
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("camera", { updateProfile: true })
+                }>
+                <Button textColor={colors.primary}>Change Photo</Button>
+              </TouchableOpacity>
 
-          <Text style={styles.name}>{user?.name}</Text>
-          <Text style={styles.email}>{user?.email}</Text>
-        </View>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              margin: 10,
-              justifyContent: "space-between",
-            }}>
-            <ButtonBox
-              text={"Orders"}
-              icon={"format-list-bulleted-square"}
-              handler={navigateHandler}
-            />
-            <ButtonBox
-              text={"Admin"}
-              icon={"view-dashboard"}
-              reverse={true}
-              handler={navigateHandler}
-            />
-            <ButtonBox
-              text={"Profile"}
-              icon={"pencil"}
-              handler={navigateHandler}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              margin: 10,
-              justifyContent: "space-evenly",
-            }}>
-            <ButtonBox
-              text={"Password"}
-              icon={"pencil"}
-              handler={navigateHandler}
-            />
-            <ButtonBox
-              text={"Log Out"}
-              icon={"exit-to-app"}
-              handler={navigateHandler}
-            />
-          </View>
-        </View>
+              <Text style={styles.name}>{user?.name}</Text>
+              <Text style={styles.email}>{user?.email}</Text>
+            </View>
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  margin: 10,
+                  justifyContent: "space-between",
+                }}>
+                <ButtonBox
+                  text={"Orders"}
+                  icon={"format-list-bulleted-square"}
+                  handler={navigateHandler}
+                />
+                <ButtonBox
+                  text={"Admin"}
+                  icon={"view-dashboard"}
+                  reverse={true}
+                  handler={navigateHandler}
+                />
+                <ButtonBox
+                  text={"Profile"}
+                  icon={"pencil"}
+                  handler={navigateHandler}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  margin: 10,
+                  justifyContent: "space-evenly",
+                }}>
+                <ButtonBox
+                  text={"Password"}
+                  icon={"pencil"}
+                  handler={navigateHandler}
+                />
+                <ButtonBox
+                  text={"Log Out"}
+                  icon={"exit-to-app"}
+                  handler={navigateHandler}
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
       <Footer />
     </>
