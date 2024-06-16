@@ -1,20 +1,19 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import {
-  DEFAULT_AVATAR,
   colors,
   defaultStyle,
   formHeading,
   inputOptions,
   formStyles as styles,
 } from "../styles/styles";
-import { Avatar, Button, TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
-import Footer from "../components/Footer";
 
-const SignUp = ({ navigation }) => {
+import Header from "../components/Header";
+
+const UpdateProfile = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [passowrd, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -25,18 +24,21 @@ const SignUp = ({ navigation }) => {
 
   const submitHandler = () => {
     alert("Send OTP");
+    navigation.navigate("verify");
   };
 
   const disabledBtn =
-    !name || !email || !passowrd || !address || !city || !country || !pinCode;
+    !name || !email || !address || !city || !country || !pinCode;
 
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.white }}>
+        {/* Header */}
+        <Header back={true} />
         {/* Heading */}
 
-        <View style={{ marginBottom: 20 }}>
-          <Text style={formHeading}>Sign Up</Text>
+        <View style={{ marginBottom: 20, paddingTop: 70 }}>
+          <Text style={formHeading}>Edit Profile</Text>
         </View>
 
         <ScrollView
@@ -47,19 +49,7 @@ const SignUp = ({ navigation }) => {
             borderRadius: 10,
             backgroundColor: colors.dark,
           }}>
-          <View style={{ minHeight: 850 }}>
-            <Avatar.Image
-              style={{ alignSelf: "center", backgroundColor: colors.primary }}
-              size={80}
-              source={{
-                uri: avatar ? avatar : DEFAULT_AVATAR,
-              }}
-            />
-
-            <TouchableOpacity onPress={() => navigation.navigate("camera")}>
-              <Button textColor={colors.primary}>Change Photo</Button>
-            </TouchableOpacity>
-
+          <View>
             <TextInput
               {...inputOptions}
               placeholder="Name"
@@ -73,21 +63,13 @@ const SignUp = ({ navigation }) => {
               onChangeText={setEmail}
               value={email}
             />
-
-            <TextInput
-              {...inputOptions}
-              placeholder="Password"
-              secureTextEntry={true}
-              onChangeText={setPassword}
-              value={passowrd}
-            />
-
             <TextInput
               {...inputOptions}
               placeholder="Address"
               onChangeText={setAddress}
               value={address}
             />
+
             <TextInput
               {...inputOptions}
               placeholder="City"
@@ -115,22 +97,13 @@ const SignUp = ({ navigation }) => {
               disabled={disabledBtn}
               style={styles.btn}
               onPress={submitHandler}>
-              Sign Up
+              Update Profile
             </Button>
-            <Text style={styles.or}>OR</Text>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("login")}>
-              <Text style={styles.link}>Log In</Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-
-      <Footer activeRoute="profile" />
     </>
   );
 };
 
-export default SignUp;
+export default UpdateProfile;
