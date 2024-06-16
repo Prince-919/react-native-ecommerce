@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import {
   colors,
   defaultStyle,
@@ -7,10 +7,8 @@ import {
 } from "../styles/styles";
 import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
-import Footer from "../components/Footer";
 import { inputOptions } from "./../styles/styles";
 import Header from "../components/Header";
-
 const ChangePassword = ({ navigation }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
