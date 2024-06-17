@@ -16,6 +16,25 @@ const UpdateProduct = ({ navigation, route }) => {
   const loading = false;
   const loadingOther = false;
 
+  const images = [
+    {
+      _id: "sdhbfds3",
+      url: "https://toppng.com/uploads/preview/apple-iphone-15-pro-max-natural-titanium-png-11695041051y3hjkvpdvc.png",
+    },
+    {
+      _id: "sdh2bfds3",
+      url: "https://w7.pngwing.com/pngs/918/793/png-transparent-macbook-pro-13-inch-macbook-air-laptop-macbook-gadget-electronics-laptop.png",
+    },
+    {
+      _id: "sdhb23fds3",
+      url: "https://e7.pngegg.com/pngimages/431/210/png-clipart-sports-shoes-nike-air-foamposite-pro-spider-man-basketball-shoe-crimson-foams.png",
+    },
+    {
+      _id: "sdhbf12ds3",
+      url: "https://w7.pngwing.com/pngs/291/940/png-transparent-apple-watch-ultra.png",
+    },
+  ];
+
   const [id] = useState(route.params.id);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
