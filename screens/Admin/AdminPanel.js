@@ -6,11 +6,27 @@ import ButtonBox from "../../components/ButtonBox";
 import ProductListHeading from "../../components/ProductListHeading";
 import { products } from "../Home";
 import ProductListItem from "../../components/ProductListItem";
+import Chart from "../../components/Chart";
 
 const AdminPanel = ({ navigation }) => {
   const loading = false;
 
-  const navigationHandler = () => {};
+  const navigationHandler = (text) => {
+    switch (text) {
+      case "Category":
+        navigation.navigate("categories");
+        break;
+      case "All Orders":
+        navigation.navigate("adminorders");
+        break;
+      case "Product":
+        navigation.navigate("newproduct");
+        break;
+      default:
+        navigation.navigate("adminorders");
+        break;
+    }
+  };
 
   const deleteProductHandler = () => {
     console.log("Delete Product");
@@ -33,9 +49,11 @@ const AdminPanel = ({ navigation }) => {
           <View
             style={{
               backgroundColor: colors.dark,
-              borderRadius: 50,
+              borderRadius: 10,
               alignItems: "center",
-            }}></View>
+            }}>
+            <Chart inStock={12} outOfStock={2} />
+          </View>
 
           <View
             style={{
@@ -49,7 +67,7 @@ const AdminPanel = ({ navigation }) => {
               handler={navigationHandler}
             />
             <ButtonBox
-              text={"Product"}
+              text={"All Orders"}
               icon={"format-list-bulleted-square"}
               handler={navigationHandler}
               reverse={true}

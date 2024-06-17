@@ -2,7 +2,7 @@ import { StyleSheet, StatusBar, Platform } from "react-native";
 
 export const colors = {
   primary: "#c70049",
-  pink: "rgb(227, 25, 99)",
+  pink: "rgba(227, 25, 99,1)",
   darkPink: "rgba(199,0, 73, 0.8)",
   white: "white",
   dark: "rgb(45, 45,45)",
