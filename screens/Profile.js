@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors, defaultStyle, formHeading } from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "./../components/Footer";
 import Loader from "../components/Loader";
 
 const loading = false;
 
-const Profile = ({ navigation }) => {
+const Profile = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState(null);
 
   const user = {
@@ -44,6 +44,10 @@ const Profile = ({ navigation }) => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (route.params?.image) setAvatar(route.params.image);
+  }, [route.params]);
 
   return (
     <>

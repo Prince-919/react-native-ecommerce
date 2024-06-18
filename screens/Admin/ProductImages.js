@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import Header from "../../components/Header";
 import { colors, defaultStyle, formHeading } from "../../styles/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageCard from "../../components/ImageCard";
 import { Avatar, Button } from "react-native-paper";
 
@@ -20,6 +20,13 @@ const ProductImages = ({ navigation, route }) => {
     console.log("Product id", productId);
   };
   const submitHandler = () => {};
+
+  useEffect(() => {
+    if (route.params?.image) {
+      setImage(route.params.image);
+      setImageChanged(true);
+    }
+  }, [route.params]);
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.lightGray }}>

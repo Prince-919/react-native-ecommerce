@@ -9,7 +9,7 @@ import {
 } from "../../styles/styles";
 import Loader from "../../components/Loader";
 import { Avatar, Button, TextInput } from "react-native-paper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 
 const NewProduct = ({ navigation, route }) => {
@@ -32,6 +32,10 @@ const NewProduct = ({ navigation, route }) => {
   const submitHandler = () => {
     console.log(name, price, stock, description, categoryID);
   };
+
+  useEffect(() => {
+    if (route.params?.image) setImage(route.params.image);
+  }, [route.params]);
 
   return (
     <>

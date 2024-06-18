@@ -8,10 +8,10 @@ import {
   formStyles as styles,
 } from "../styles/styles";
 import { Avatar, Button, TextInput } from "react-native-paper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ navigation, route }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [passowrd, setPassword] = useState("");
@@ -29,6 +29,10 @@ const SignUp = ({ navigation }) => {
 
   const disabledBtn =
     !name || !email || !passowrd || !address || !city || !country || !pinCode;
+
+  useEffect(() => {
+    if (route.params?.image) setAvatar(route.params.image);
+  }, [route.params]);
 
   return (
     <>
