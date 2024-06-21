@@ -7,4 +7,4 @@ export const store = configureStore({
   },
 });
 
-export const server = "https://aps-ecommerce-server.onrender.com";
+export const server = "https://aps-ecommerce-server.onrender.com/api/v1";
