@@ -11,47 +11,23 @@ import { Avatar, Button } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import SearchModal from "../components/SearchModal";
 import ProductCard from "../components/ProductCard";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "./../redux/actions/productAction";
+import { useSetCategories } from "../utils/hooks";
 
 const Home = () => {
   const [category, setCategory] = useState("");
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const { products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  const categories = [
-    {
-      _id: "sbdyd",
-      category: "Nice",
-    },
-    {
-      _id: "fdfgfg",
-      category: "Football",
-    },
-    {
-      _id: "dfggg",
-      category: "Man",
-    },
-    {
-      _id: "degvwfr",
-      category: "Women",
-    },
-    {
-      _id: "wfegtrhyj",
-      category: "Laptop",
-    },
-    {
-      _id: "fdghdg",
-      category: "Mobile",
-    },
-  ];
+  const isFocused = useIsFocused();
 
   const categoryBtnHandler = (id) => {
     setCategory(id);
@@ -59,6 +35,8 @@ const Home = () => {
   const addToCardHandler = (id) => {
     console.log("Add to cart", id);
   };
+
+  useSetCategories(setCategories, isFocused);
 
   useEffect(() => {
     dispatch(getAllProducts());
