@@ -9,7 +9,7 @@ export const otherReducer = createReducer({}, (builder) => {
       state.loading = false;
       state.message = action.payload;
     })
-    .addCase("updatePasswordFailed", (state, action) => {
+    .addCase("updatePasswordFail", (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
