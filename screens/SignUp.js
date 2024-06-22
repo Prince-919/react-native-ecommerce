@@ -10,25 +10,47 @@ import {
 import { Avatar, Button, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
+import mime from "mime";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/actions/userAction";
+import { useMessageErrorFormUser } from "./../utils/hooks";
 
 const SignUp = ({ navigation, route }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [passowrd, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [avatar, setAvatar] = useState("");
   const [country, setCountry] = useState("");
   const [pinCode, setPinCode] = useState("");
 
-  const loading = false;
+  const dispatch = useDispatch();
 
-  const submitHandler = () => {
-    alert("Send OTP");
-  };
+  const loading = useMessageErrorFormUser(navigation, dispatch, "profile");
 
   const disabledBtn =
-    !name || !email || !passowrd || !address || !city || !country || !pinCode;
+    !name || !email || !password || !address || !city || !country || !pinCode;
+
+  const submitHandler = () => {
+    const myForm = new FormData();
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("password", password);
+    myForm.append("address", address);
+    myForm.append("city", city);
+    myForm.append("country", country);
+    myForm.append("pinCode", pinCode);
+
+    if (avatar !== "") {
+      myForm.append("file", {
+        uri: avatar,
+        type: mime.getType(avatar),
+        name: avatar.split("/").pop(),
+      });
+    }
+    dispatch(register(myForm));
+  };
 
   useEffect(() => {
     if (route.params?.image) setAvatar(route.params.image);
@@ -83,7 +105,7 @@ const SignUp = ({ navigation, route }) => {
               placeholder="Password"
               secureTextEntry={true}
               onChangeText={setPassword}
-              value={passowrd}
+              value={password}
             />
 
             <TextInput
