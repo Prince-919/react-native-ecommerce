@@ -70,3 +70,27 @@ export const updateProfile =
       });
     }
   };
+
+export const updatePicture = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updatePictureRequest",
+    });
+    const { data } = await axios.put(`${server}/user/updatepicture`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "updatePictureSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updatePictureFail",
+      payload: error.response.data.message,
+    });
+  }
+};
