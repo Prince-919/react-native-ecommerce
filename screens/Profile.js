@@ -1,21 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { colors, defaultStyle, formHeading } from "../styles/styles";
+import {
+  DEFAULT_AVATAR,
+  colors,
+  defaultStyle,
+  formHeading,
+} from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 import { useEffect, useState } from "react";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "./../components/Footer";
 import Loader from "../components/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./../redux/actions/userAction";
 import { useMessageErrorFormUser } from "./../utils/hooks";
 
 const Profile = ({ navigation, route }) => {
-  const [avatar, setAvatar] = useState(null);
-
-  const user = {
-    name: "Prince Sharma",
-    email: "hello@prince.com",
-  };
+  const { user } = useSelector((state) => state.user);
+  const [avatar, setAvatar] = useState(
+    user?.avatar ? user?.avatar?.url : DEFAULT_AVATAR
+  );
 
   const dispatch = useDispatch();
 
@@ -96,12 +99,14 @@ const Profile = ({ navigation, route }) => {
                   icon={"format-list-bulleted-square"}
                   handler={navigateHandler}
                 />
-                <ButtonBox
-                  text={"Admin"}
-                  icon={"view-dashboard"}
-                  reverse={true}
-                  handler={navigateHandler}
-                />
+                {user?.role === "admin" && (
+                  <ButtonBox
+                    text={"Admin"}
+                    icon={"view-dashboard"}
+                    reverse={true}
+                    handler={navigateHandler}
+                  />
+                )}
                 <ButtonBox
                   text={"Profile"}
                   icon={"pencil"}
