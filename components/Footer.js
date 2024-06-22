@@ -93,6 +93,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderTopRightRadius: 120,
     borderTopLeftRadius: 120,
+    position: "absolute",
+    width: "100%",
+    bottom: 0,
   },
   wrapper: {
     flexDirection: "row",

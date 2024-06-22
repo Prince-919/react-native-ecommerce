@@ -11,8 +11,9 @@ import ButtonBox from "../components/ButtonBox";
 import Footer from "./../components/Footer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "./../redux/actions/userAction";
+import { loadUser, logout } from "./../redux/actions/userAction";
 import { useMessageErrorFormUser } from "./../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
 
 const Profile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);
@@ -21,6 +22,7 @@ const Profile = ({ navigation, route }) => {
   );
 
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const loading = useMessageErrorFormUser(navigation, dispatch, "login");
 
@@ -55,7 +57,8 @@ const Profile = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route.params?.image) setAvatar(route.params.image);
-  }, [route.params]);
+    dispatch(loadUser());
+  }, [route.params, dispatch, isFocused]);
 
   return (
     <>

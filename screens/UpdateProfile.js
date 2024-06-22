@@ -10,25 +10,26 @@ import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
 
 import Header from "../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../redux/actions/otherAction";
+import { useMessageErrorFormOther } from "../utils/hooks";
 
 const UpdateProfile = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [country, setCountry] = useState("");
-  const [pinCode, setPinCode] = useState("");
+  const { user } = useSelector((state) => state.user);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [address, setAddress] = useState(user?.address);
+  const [city, setCity] = useState(user?.city);
+  const [country, setCountry] = useState(user?.country);
+  const [pinCode, setPinCode] = useState(user?.pinCode.toString());
 
-  const loading = false;
+  const dispatch = useDispatch();
+
+  const loading = useMessageErrorFormOther(dispatch, navigation, "profile");
 
   const submitHandler = () => {
-    alert("Send OTP");
-    navigation.navigate("verify");
+    dispatch(updateProfile(name, email, address, city, country, pinCode));
   };
-
-  const disabledBtn =
-    !name || !email || !address || !city || !country || !pinCode;
 
   return (
     <>
@@ -97,7 +98,6 @@ const UpdateProfile = ({ navigation }) => {
             <Button
               loading={loading}
               textColor={colors.white}
-              disabled={disabledBtn}
               style={styles.btn}
               onPress={submitHandler}>
               Update Profile

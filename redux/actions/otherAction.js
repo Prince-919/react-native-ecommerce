@@ -33,3 +33,40 @@ export const updatePassword =
       });
     }
   };
+
+export const updateProfile =
+  (name, email, address, city, country, pinCode) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "updateProfileRequest",
+      });
+
+      const { data } = await axios.put(
+        `${server}/user/updateprofile`,
+        {
+          name,
+          email,
+          address,
+          city,
+          country,
+          pinCode,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      dispatch({
+        type: "updateProfileSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updateProfileFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
