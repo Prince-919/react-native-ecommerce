@@ -6,36 +6,28 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { colors, defaultStyle } from "../styles/styles";
 import Header from "../components/Header";
 import Carousel from "react-native-snap-carousel";
 import { Avatar, Button } from "react-native-paper";
 import Toast from "react-native-toast-message";
+import { useDispatch, useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import { getProductDetails } from "../redux/actions/productAction";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = SLIDER_WIDTH;
 
 const ProductDetails = ({ route: { params } }) => {
+  const {
+    product: { name, price, stock, description, images },
+  } = useSelector((state) => state.product);
+
   const isCarousel = useRef(null);
   const [quantity, setQuantity] = useState(1);
-
-  const name = "IPhone 14";
-  const price = 89990;
-  const stock = 5;
-  const description =
-    "15.40 cm (6.1-inch) Super Retina XDR display, Advanced camera system for better photos in any light,Cinematic mode now in 4K Dolby Vision up to 30 fps, ction mode for smooth, steady, handheld videos,Vital safety technology — Crash Detection calls for help when you can’t,All-day battery life and up to 20 hours of video playback";
-
-  const images = [
-    {
-      id: "wdnsfnc",
-      url: "https://ismart.co.in/wp-content/uploads/2022/09/iphone-14-pro-finish-select-202209-6-7inch-gold.png",
-    },
-    {
-      id: "wddfubfsdfe",
-      url: "https://exstatic-in.iqoo.com/Oz84QB3Wo0uns8j1/1623131796309/f994b6ee0b2ae9b8754e2ac19cb0457c.png",
-    },
-  ];
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const incrementQty = () => {
     if (stock <= quantity) return;
@@ -57,6 +49,10 @@ const ProductDetails = ({ route: { params } }) => {
       text1: "Added To Cart",
     });
   };
+
+  useEffect(() => {
+    dispatch(getProductDetails(params.id));
+  }, [dispatch, params.id, isFocused]);
 
   return (
     <View
