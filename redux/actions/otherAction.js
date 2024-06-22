@@ -1,5 +1,5 @@
 import axios from "axios";
-import server from "../store";
+import { server } from "../store";
 
 export const updatePassword =
   (oldPassword, newPassword) => async (dispatch) => {
@@ -7,6 +7,7 @@ export const updatePassword =
       dispatch({
         type: "updatePasswordRequest",
       });
+
       const { data } = await axios.put(
         `${server}/user/changepassword`,
         {
