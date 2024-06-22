@@ -51,3 +51,23 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "logoutRequest",
+    });
+    const { data } = await axios.get(`${server}/user/logout`, {
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "logoutSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "logoutFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
