@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "./../components/Footer";
 import Loader from "../components/Loader";
-
-const loading = false;
+import { useDispatch } from "react-redux";
+import { logout } from "./../redux/actions/userAction";
+import { useMessageErrorFormUser } from "./../utils/hooks";
 
 const Profile = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState(null);
@@ -16,8 +17,12 @@ const Profile = ({ navigation, route }) => {
     email: "hello@prince.com",
   };
 
+  const dispatch = useDispatch();
+
+  const loading = useMessageErrorFormUser(navigation, dispatch, "login");
+
   const logoutHandler = () => {
-    alert("Logged out");
+    dispatch(logout());
   };
 
   const navigateHandler = (text) => {

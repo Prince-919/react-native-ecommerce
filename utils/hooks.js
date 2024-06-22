@@ -18,7 +18,10 @@ export const useMessageErrorFormUser = (
       dispatch({ type: "clearError" });
     }
     if (message) {
-      navigation.navigate(navigateTo);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: navigateTo }],
+      });
       Toast.show({
         type: "success",
         text1: message,
