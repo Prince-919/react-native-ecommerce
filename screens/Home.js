@@ -8,57 +8,22 @@ import {
 import { colors, defaultStyle } from "../styles/styles";
 import Header from "../components/Header";
 import { Avatar, Button } from "react-native-paper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchModal from "../components/SearchModal";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
-
-export const products = [
-  {
-    _id: "cdfd",
-    name: "IPhone 14",
-    price: 89000,
-    stock: 10,
-    category: "category_id_1",
-    images: [
-      {
-        url: "https://ismart.co.in/wp-content/uploads/2022/09/iphone-14-pro-finish-select-202209-6-7inch-gold.png",
-      },
-    ],
-  },
-  {
-    _id: "dedfrs",
-    name: "Iqoo Z3",
-    price: 24990,
-    stock: 14,
-    category: "category_id_2",
-    images: [
-      {
-        url: "https://exstatic-in.iqoo.com/Oz84QB3Wo0uns8j1/1623131796309/f994b6ee0b2ae9b8754e2ac19cb0457c.png",
-      },
-    ],
-  },
-  {
-    _id: "dedfradbshjbs",
-    name: "MSI",
-    price: 76990,
-    stock: 12,
-    category: "category_id_3",
-    images: [
-      {
-        url: "https://storage-asset.msi.com/global/picture/image/feature/nb/Prestige/Prestige16-A13V/kv-laptop.png",
-      },
-    ],
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "./../redux/actions/productAction";
 
 const Home = () => {
   const [category, setCategory] = useState("");
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const { products } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const categories = [
@@ -94,6 +59,10 @@ const Home = () => {
   const addToCardHandler = (id) => {
     console.log("Add to cart", id);
   };
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   return (
     <>

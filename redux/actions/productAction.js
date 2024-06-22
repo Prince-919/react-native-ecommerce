@@ -1,4 +1,5 @@
 import { server } from "../store";
+import axios from "axios";
 
 export const getAllProducts = () => async (dispatch) => {
   try {
