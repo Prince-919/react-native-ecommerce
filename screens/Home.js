@@ -17,6 +17,7 @@ import Heading from "../components/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "./../redux/actions/productAction";
 import { useSetCategories } from "../utils/hooks";
+import Toast from "react-native-toast-message";
 
 const Home = () => {
   const [category, setCategory] = useState("");
@@ -32,8 +33,27 @@ const Home = () => {
   const categoryBtnHandler = (id) => {
     setCategory(id);
   };
-  const addToCardHandler = (id) => {
-    console.log("Add to cart", id);
+  const addToCardHandler = (id, name, price, image, stock) => {
+    if (stock === 0)
+      return Toast.show({
+        type: "error",
+        text1: "Out of stock",
+      });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: 1,
+      },
+    });
+    Toast.show({
+      type: "success",
+      text1: "Add to cart",
+    });
   };
 
   useSetCategories(setCategories, isFocused);

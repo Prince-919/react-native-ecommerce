@@ -38,12 +38,23 @@ const ProductDetails = ({ route: { params } }) => {
     setQuantity((prev) => prev - 1);
   };
 
-  const addToCartHandler = () => {
+  const addToCardHandler = () => {
     if (stock === 0)
       return Toast.show({
         type: "error",
         text1: "Out Of Stock",
       });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: params.id,
+        name,
+        price,
+        image: images[0]?.url,
+        stock,
+        quantity,
+      },
+    });
     Toast.show({
       type: "success",
       text1: "Added To Cart",
@@ -87,7 +98,7 @@ const ProductDetails = ({ route: { params } }) => {
           </View>
         </View>
 
-        <TouchableOpacity activeOpacity={0.8} onPress={addToCartHandler}>
+        <TouchableOpacity activeOpacity={0.8} onPress={addToCardHandler}>
           <Button icon={"cart"} style={styles.btn} textColor={colors.white}>
             Add To Cart
           </Button>
