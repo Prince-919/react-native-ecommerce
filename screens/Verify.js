@@ -9,16 +9,19 @@ import {
 import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import { useDispatch } from "react-redux";
+import { useMessageErrorFormOther } from "../utils/hooks";
+import { resetPassword } from "../redux/actions/otherAction";
 
 const Verify = ({ navigation }) => {
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const loading = false;
+  const loading = useMessageErrorFormOther(dispatch, navigation, "login");
 
   const submitHandler = () => {
-    alert("Password changed successfully, please login!");
-    navigation.navigate("login");
+    dispatch(resetPassword(otp, password));
   };
 
   return (
@@ -34,6 +37,7 @@ const Verify = ({ navigation }) => {
           <TextInput
             {...inputOptions}
             placeholder="OTP"
+            secureTextEntry={true}
             keyboardType="number-pad"
             onChangeText={setOtp}
             value={otp}

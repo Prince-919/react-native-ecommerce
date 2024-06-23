@@ -4,6 +4,13 @@ import { colors, defaultStyle, formHeading } from "../../styles/styles";
 import { useEffect, useState } from "react";
 import ImageCard from "../../components/ImageCard";
 import { Avatar, Button } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { useMessageErrorFormOther } from "../../utils/hooks";
+import {
+  deleteProductImage,
+  updateProductImage,
+} from "../../redux/actions/otherAction";
+import mime from "mime";
 
 const ProductImages = ({ navigation, route }) => {
   console.log(route.params);
@@ -13,13 +20,25 @@ const ProductImages = ({ navigation, route }) => {
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
 
-  const loading = false;
+  const dispatch = useDispatch();
 
-  const deleteHandler = (id) => {
-    console.log("Delete handler called", id);
-    console.log("Product id", productId);
+  const loading = useMessageErrorFormOther(dispatch, navigation, "adminpanel");
+
+  const deleteHandler = (imageId) => {
+    dispatch(deleteProductImage(productId, imageId));
   };
-  const submitHandler = () => {};
+
+  const submitHandler = () => {
+    const myForm = new FormData();
+
+    myForm.append("file", {
+      uri: image,
+      type: mime.getType(image),
+      name: image.split("/").pop(),
+    });
+
+    dispatch(updateProductImage(productId, myForm));
+  };
 
   useEffect(() => {
     if (route.params?.image) {

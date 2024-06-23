@@ -9,31 +9,32 @@ import Header from "../../components/Header";
 import CategoryCard from "../../components/CategoryCard";
 import { useState } from "react";
 import { Button, TextInput } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import {
+  useMessageErrorFormOther,
+  useSetCategories,
+} from "./../../utils/hooks";
+import { addCategory, deleteCategory } from "../../redux/actions/otherAction";
 
-const categories = [
-  {
-    _id: "ddfjnedfuns",
-    name: "Laptop",
-  },
-  {
-    _id: "ddfjneddfuns",
-    name: "Mobile",
-  },
-  {
-    _id: "ddfddfuns",
-    name: "Watch",
-  },
-];
-
-const Categories = () => {
+const Categories = ({ navigation }) => {
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
+  useSetCategories(setCategories, isFocused);
+
+  const loading = useMessageErrorFormOther(dispatch, navigation, "adminpanel");
+
   const deleteHandler = (id) => {
-    console.log("Category deleted", id);
+    dispatch(deleteCategory(id));
   };
 
-  const submitHandler = () => {};
-
-  const loading = false;
+  const submitHandler = () => {
+    dispatch(addCategory(category));
+  };
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.lightGray }}>
@@ -46,6 +47,7 @@ const Categories = () => {
       </View>
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           marginBottom: 20,
         }}>
@@ -60,7 +62,7 @@ const Categories = () => {
               <CategoryCard
                 key={category._id}
                 id={category._id}
-                name={category.name}
+                name={category.category}
                 deleteHandler={deleteHandler}
               />
             );

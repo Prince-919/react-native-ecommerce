@@ -9,15 +9,19 @@ import {
 import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import { useDispatch } from "react-redux";
+import { forgetPassword } from "../redux/actions/otherAction";
+import { useMessageErrorFormOther } from "../utils/hooks";
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
 
-  const loading = false;
+  const dispatch = useDispatch();
+
+  const loading = useMessageErrorFormOther(dispatch, navigation, "verify");
 
   const submitHandler = () => {
-    alert("Send OTP");
-    navigation.navigate("verify");
+    dispatch(forgetPassword(email));
   };
 
   return (
