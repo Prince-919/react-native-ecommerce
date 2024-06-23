@@ -99,7 +99,7 @@ export const placeOrder =
   (
     orderItems,
     shippingInfo,
-    paymentMethod,
+    paymentMethods,
     itemsPrice,
     taxPrice,
     shippingCharges,
@@ -117,7 +117,7 @@ export const placeOrder =
         {
           orderItems,
           shippingInfo,
-          paymentMethod,
+          paymentMethods,
           itemsPrice,
           taxPrice,
           shippingCharges,
