@@ -64,9 +64,7 @@ export const useMessageErrorFormOther = (
       dispatch({
         type: "clearMessage",
       });
-
       navigateTo && navigation.navigate(navigateTo);
-
       func && dispatch(func());
     }
   }, [error, message, dispatch]);
