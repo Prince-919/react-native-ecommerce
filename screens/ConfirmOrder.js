@@ -2,19 +2,24 @@ import { ScrollView, TouchableOpacity, View } from "react-native";
 import { colors, defaultStyle } from "../styles/styles";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
-import { cartItems } from "./Cart";
 import ConfirmOrderItem from "../components/ConfirmOrderItem";
 import PriceTag from "../components/PriceTag";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-paper";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const ConfirmOrder = () => {
+  const { cartItems } = useSelector((state) => state.cart);
   const navigation = useNavigation();
 
-  const itemPrice = 5100;
-  const shippingCharges = 200;
-  const tax = 0.18 * itemPrice;
-  const totalAmount = itemPrice + shippingCharges + tax;
+  const [itemPrice] = useState(
+    cartItems.reduce((prev, curr) => prev + curr.quantity * curr.price, 0)
+  );
+  const [shippingCharges] = useState(itemPrice > 10000 ? 0 : 200);
+  const [tax] = useState(Number((0.18 * itemPrice).toFixed()));
+  const [totalAmount] = useState(itemPrice + shippingCharges + tax);
+  +shippingCharges + tax;
 
   return (
     <View style={defaultStyle}>

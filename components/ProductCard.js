@@ -72,8 +72,8 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 5,
-    width: 220,
+    elevation: 15,
+    width: 250,
     height: 400,
     alignContent: "center",
     justifyContent: "space-between",
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: "300",
     fontSize: 25,
+    width: "60%",
   },
   price: {
     fontWeight: "700",
@@ -108,5 +109,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     width: "100%",
+    paddingVertical: 4,
   },
 });
