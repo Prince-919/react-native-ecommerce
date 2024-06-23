@@ -46,11 +46,17 @@ const CartItem = ({
         </Text>
       </View>
       <View style={styles.qtyWrapper}>
-        <TouchableOpacity onPress={() => decrementHandler(id, qty)}>
+        <TouchableOpacity
+          onPress={() =>
+            decrementHandler(id, name, amount, imgSrc, stock, qty)
+          }>
           <Avatar.Icon {...iconOptions} icon={"minus"} />
         </TouchableOpacity>
         <Text style={styles.qty}>{qty}</Text>
-        <TouchableOpacity onPress={() => incrementHandler(id, qty, stock)}>
+        <TouchableOpacity
+          onPress={() =>
+            incrementHandler(id, name, amount, imgSrc, stock, qty)
+          }>
           <Avatar.Icon {...iconOptions} icon={"plus"} />
         </TouchableOpacity>
       </View>

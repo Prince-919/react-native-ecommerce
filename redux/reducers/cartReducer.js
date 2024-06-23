@@ -8,18 +8,19 @@ export const cartReducer = createReducer(
     builder
       .addCase("addToCart", (state, action) => {
         const item = action.payload;
-        const isExists = state.cartItems.find(
-          (i) => i.product === item.product
-        );
-        if (isExists) {
+        const isExist = state.cartItems.find((i) => i.product === item.product);
+        if (isExist) {
           state.cartItems = state.cartItems.filter((i) =>
-            item.product === isExists.product ? item : i
+            i.product === isExist.product ? item : i
           );
-        } else {
-          state.cartItems.push(item);
-        }
+
+          for (let i = 0; i < state.cartItems.length; i++) {
+            if (state.cartItems[i].product === isExist.product)
+              state.cartItems[i] = item;
+          }
+        } else state.cartItems.push(item);
       })
-      .addCase("removeFromCard", (state, action) => {
+      .addCase("removeFromCart", (state, action) => {
         const id = action.payload;
         state.cartItems = state.cartItems.filter((i) => i.product !== id);
       })

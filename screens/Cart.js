@@ -6,17 +6,46 @@ import { Button } from "react-native-paper";
 import CartItem from "../components/CartItem";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
 
 const Cart = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
-  const incrementHandler = (id, qty, stock) => {
-    console.log("Incrementing quantity: ", id, qty, stock);
+  const incrementHandler = (id, name, price, image, stock, quantity) => {
+    const newQty = quantity + 1;
+    if (stock <= quantity)
+      return Toast.show({
+        type: "error",
+        text1: "Maximum value added",
+      });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
   };
-  const decrementHandler = (id, qty) => {
-    console.log("Decrementing quantity: ", id, qty);
+  const decrementHandler = (id, name, price, image, stock, quantity) => {
+    const newQty = quantity - 1;
+    if (1 >= quantity) return dispatch({ type: "removeFromCart", payload: id });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
   };
 
   return (
