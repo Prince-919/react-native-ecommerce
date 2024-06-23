@@ -4,13 +4,24 @@ import { colors, defaultStyle, formHeading } from "../../styles/styles";
 import Loader from "../../components/Loader";
 import OrderItem from "../../components/OrderItem";
 import { Headline } from "react-native-paper";
-import { orders } from "../Orders";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useGetOrders, useMessageErrorFormOther } from "../../utils/hooks";
+import { useDispatch } from "react-redux";
+import { processOrder } from "../../redux/actions/otherAction";
 
-const AdminOrders = () => {
-  const loading = false;
-  const processOrderLoading = false;
+const AdminOrders = ({ navigation }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const { loading, orders } = useGetOrders(isFocused, true);
+  const processOrderLoading = useMessageErrorFormOther(
+    dispatch,
+    navigation,
+    "adminpanel"
+  );
 
-  const updateHandler = () => {};
+  const updateHandler = (id) => {
+    dispatch(processOrder(id));
+  };
 
   return (
     <>
@@ -41,7 +52,7 @@ const AdminOrders = () => {
                       index={index}
                       price={item.totalAmount}
                       status={item.orderStatus}
-                      paymentMethod={item.paymentMethod}
+                      paymentMethod={item.paymentMethods}
                       orderedOn={item.createdAt.split("T")[0]}
                       address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country}, ${item.shippingInfo.pinCode}`}
                       admin={true}

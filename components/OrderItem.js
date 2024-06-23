@@ -5,7 +5,6 @@ import { Button } from "react-native-paper";
 
 const OrderItem = ({
   id,
-  order,
   price,
   status,
   address,

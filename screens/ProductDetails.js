@@ -30,7 +30,8 @@ const ProductDetails = ({ route: { params } }) => {
   const isFocused = useIsFocused();
 
   const incrementQty = () => {
-    if (stock <= quantity) return;
+    if (stock <= quantity)
+      return Toast.show({ type: "error", text1: "Maximum value added" });
     setQuantity((prev) => prev + 1);
   };
   const decrementQty = () => {

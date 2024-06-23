@@ -4,51 +4,12 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { Headline } from "react-native-paper";
 import OrderItem from "../components/OrderItem";
-
-export const orders = [
-  {
-    _id: "dndjf783e",
-    shippingInfo: {
-      address: "rampur word no-6",
-      city: "Mohania",
-      country: "India",
-      pinCode: 821109,
-    },
-    createdAt: "16-06-2024T6725",
-    orderStatus: "Processing",
-    paymentMethod: "COD",
-    totalAmount: 65590,
-  },
-  {
-    _id: "dndjf7sf83e",
-    shippingInfo: {
-      address: "Muthani",
-      city: "Mohania",
-      country: "India",
-      pinCode: 821109,
-    },
-    createdAt: "10-06-2024T2452",
-    orderStatus: "Processing",
-    paymentMethod: "ONLINE",
-    totalAmount: 25590,
-  },
-  {
-    _id: "dndjf7sf8e",
-    shippingInfo: {
-      address: "Sakari",
-      city: "Kudra",
-      country: "India",
-      pinCode: 821110,
-    },
-    createdAt: "10-06-2024T2452",
-    orderStatus: "Processing",
-    paymentMethod: "ONLINE",
-    totalAmount: 25590,
-  },
-];
+import { useGetOrders } from "../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
 
 const Orders = () => {
-  const loading = false;
+  const isFocused = useIsFocused();
+  const { loading, orders } = useGetOrders(isFocused);
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.lightGray }}>
@@ -78,7 +39,7 @@ const Orders = () => {
                     index={index}
                     price={item.totalAmount}
                     status={item.orderStatus}
-                    paymentMethod={item.paymentMethod}
+                    paymentMethod={item.paymentMethods}
                     orderedOn={item.createdAt.split("T")[0]}
                     address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country}, ${item.shippingInfo.pinCode}`}
                   />
