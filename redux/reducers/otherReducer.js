@@ -72,7 +72,7 @@ export const otherReducer = createReducer({}, (builder) => {
       state.loading = false;
       state.message = action.payload;
     })
-    .addCase("addProductSuccess", (state) => {
+    .addCase("addProductSuccess", (state, action) => {
       state.loading = false;
       state.message = action.payload;
     })
@@ -128,7 +128,7 @@ export const otherReducer = createReducer({}, (builder) => {
       state.loading = false;
       state.error = action.payload;
     })
-    .addCase("addProductFail", (state) => {
+    .addCase("addProductFail", (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })

@@ -115,7 +115,7 @@ export const useGetOrders = (isFocused, isAdmin = false) => {
 };
 
 export const useAdminProducts = (dispatch, isFocused) => {
-  const { products, inStock, outOfStock, error } = useSelector(
+  const { products, inStock, outOfStock, error, loading } = useSelector(
     (state) => state.product
   );
 
@@ -137,5 +137,6 @@ export const useAdminProducts = (dispatch, isFocused) => {
     products,
     inStock,
     outOfStock,
+    loading,
   };
 };

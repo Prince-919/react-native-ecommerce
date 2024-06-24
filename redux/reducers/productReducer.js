@@ -17,28 +17,28 @@ export const productReducer = createReducer(
         state.loading = true;
       })
       .addCase("getAllProductsSuccess", (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.products = action.payload;
       })
       .addCase("getAdminProductsSuccess", (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.products = action.payload.products;
         state.inStock = action.payload.inStock;
-        state.outStock = action.payload.outStock;
+        state.outOfStock = action.payload.outOfStock;
       })
       .addCase("getProductDetailsSuccess", (state, action) => {
         state.loading = true;
         state.product = action.payload;
       })
-      .addCase("getAllProductsFail", (state) => {
+      .addCase("getAllProductsFail", (state, action) => {
         state.loading = true;
         state.error = action.payload;
       })
-      .addCase("getAdminProductsFail", (state) => {
+      .addCase("getAdminProductsFail", (state, action) => {
         state.loading = true;
         state.error = action.payload;
       })
-      .addCase("getProductDetailsFail", (state) => {
+      .addCase("getProductDetailsFail", (state, action) => {
         state.loading = true;
         state.error = action.payload;
       });

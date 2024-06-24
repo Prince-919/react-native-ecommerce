@@ -10,12 +10,13 @@ import { useDispatch } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import { deleteProduct } from "../../redux/actions/otherAction";
 import { getAdminProducts } from "../../redux/actions/productAction";
+import Loader from "./../../components/Loader";
 
 const AdminPanel = ({ navigation }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const { products, inStock, outOfStock } = useAdminProducts(
+  const { products, inStock, outOfStock, loading } = useAdminProducts(
     dispatch,
     isFocused
   );
@@ -57,7 +58,9 @@ const AdminPanel = ({ navigation }) => {
         <Text style={formHeading}>Admin Panel</Text>
       </View>
 
-      {products && (
+      {loading ? (
+        <Loader />
+      ) : (
         <>
           <View
             style={{
